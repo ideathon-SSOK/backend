@@ -18,6 +18,7 @@ public class LiteracyController {
     @PostMapping("/analyze")
     public ResponseEntity<String> analyzeText(@RequestBody AnalysisRequestDto requestDto) {
         String analysisResult = literacyTutorService.analyzeAndSave(
+                requestDto.getTitle(), // 새로 추가된 파라미터
                 requestDto.getText(),
                 requestDto.getTargetLevel()
         );

@@ -31,24 +31,26 @@ public class LiteracyTutorService {
 
     // 1. 전체 글 분석 및 저장
     @Transactional
-    public String analyzeAndSave(String text, String targetLevel) {
+    public String analyzeAndSave(String title, String text, String targetLevel) {
         String prompt = String.format(
                 "당신은 사용자의 문해력을 길러주는 전문 튜터입니다.\n" +
                         "절대로 글을 단순히 한 줄로 요약해서 정답만 주지 마세요.\n" +
                         "대상 독자 수준: %s\n\n" +
+                        "[제목]\n%s\n\n" +  // AI가 문맥을 더 잘 파악하도록 제목 추가
                         "[원문]\n%s\n\n" +
                         "[지시사항]\n" +
                         "1. 원문에서 어려울 만한 핵심 단어 2~3개를 뽑아 실생활 예시로 설명하세요.\n" +
                         "2. 필요한 맥락과 배경지식을 설명하세요.\n" +
                         "3. 스스로 이해를 유도하는 질문을 던지세요.\n" +
                         "4. 친절하게 응원하세요.",
-                targetLevel, text
+                targetLevel, title, text
         );
 
         String result = callGeminiApi(prompt);
 
-        // DB에 전체 글 분석 기록 저장
+        // DB에 전체 글 분석 기록 저장 (title 포함)
         LearningRecord record = LearningRecord.builder()
+                .title(title) // 추가된 제목 데이터
                 .originalText(text)
                 .analysisResult(result)
                 .targetLevel(targetLevel)

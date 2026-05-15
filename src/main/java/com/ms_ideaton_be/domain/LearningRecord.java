@@ -15,6 +15,8 @@ public class LearningRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;          // 글 제목 저장 컬럼
+
     @Column(columnDefinition = "TEXT")
     private String originalText;   // 사용자가 입력한 원문
 
