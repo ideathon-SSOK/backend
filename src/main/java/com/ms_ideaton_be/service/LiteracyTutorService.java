@@ -44,8 +44,11 @@ public class LiteracyTutorService {
                         "3. 스스로 이해를 유도하는 질문을 던지세요.\n" +
                         "4. 친절하게 응원하세요.\n" +
                         "5. 중요!! 답변에 ** (별표) 같은 마크다운 특수기호를 절대 사용하지 마세요.\n" +
-                        // 단어 분석과 완벽하게 통일된 디자인 적용 (색상, 여백 모두 동일하게 맞춤)
-                        "6. 시각적 강조!! 글의 전체 제목은 <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 16px;\">제목</h3> 형태로, 각 문단의 핵심 소제목은 <br><h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-bottom: 8px;\">소제목</h4> 형태의 HTML 태그로 묶어서 작성해 주세요. 본문 내용은 태그 없이 일반 텍스트로 작성하세요.",
+                        // 프롬프트에서 가독성 디자인 직접 처리 (div 래퍼 및 여백/줄간격 최적화)
+                        "6. 가독성 최적화!! 답변 전체를 반드시 다음 태그로 감싸주세요: <div style=\"white-space: pre-wrap; line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
+                        "7. 글의 전체 제목은 <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 20px; line-height: 1.3;\">제목</h3> 형태로 작성하세요.\n" +
+                        "8. 각 문단의 핵심 소제목은 <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 28px; margin-bottom: 10px;\">소제목</h4> 형태로 작성하세요.\n" +
+                        "9. 맨 마지막은 반드시 </div> 로 닫아주세요.",
                 targetLevel, title, text
         );
 
@@ -74,16 +77,17 @@ public class LiteracyTutorService {
                         "[선택한 단어]: %s\n\n" +
                         "[지시사항]\n" +
                         "1. 반드시 아래의 HTML 구조와 순서대로만 대답해 주세요. 서론이나 결론 등 불필요한 말은 절대 하지 마세요.\n" +
-                        // font-size 속성 추가 (큰 제목 24px)
-                        "2. 맨 위 제목: <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 16px;\">%s</h3>\n" +
-                        // font-size 속성 추가 (소제목 20px)
-                        "3. 첫 번째 섹션: <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-bottom: 8px;\">이 단어, 여기선 이런 뜻이에요</h4>\n" +
+                        // 프롬프트에서 가독성 디자인 직접 처리
+                        "2. 전체 내용을 감싸는 부모 태그: <div style=\"white-space: pre-wrap; line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
+                        "3. 맨 위 제목: <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 20px; line-height: 1.3;\">%s</h3>\n" +
+                        "4. 첫 번째 섹션: <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 28px; margin-bottom: 10px;\">이 단어, 여기선 이런 뜻이에요</h4>\n" +
                         "   - 내용: 누구나 바로 이해할 수 있도록, 사전적 정의를 피하고 아주 쉬운 비유와 함께 단어의 본래 뜻을 풀이해주세요.\n" +
-                        "4. 두 번째 섹션: <br><h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-bottom: 8px;\">왜 이 말이 여기 쓰였을까요?</h4>\n" +
+                        "5. 두 번째 섹션: <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 28px; margin-bottom: 10px;\">왜 이 말이 여기 쓰였을까요?</h4>\n" +
                         "   - 내용: 주어진 [문맥] 안에서 이 단어가 어떤 역할을 하고 있는지, 전체 문장이 말하고자 하는 핵심은 무엇인지 설명해주세요.\n" +
-                        "5. 세 번째 섹션: <br><h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-bottom: 8px;\">실제로는 이렇게 쓰여요 !</h4>\n" +
+                        "6. 세 번째 섹션: <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 28px; margin-bottom: 10px;\">실제로는 이렇게 쓰여요 !</h4>\n" +
                         "   - 내용: 이 단어를 일상생활에서 어떻게 쓸 수 있는지 짧고 자연스러운 예문 1~2개를 만들어주세요. 예문 속 해당 단어는 따옴표로 강조해주세요.\n" +
-                        "6. 중요!! 답변에 ** (별표) 같은 마크다운 특수기호를 절대 사용하지 마세요. 오직 지정된 HTML 태그와 순수 텍스트만 사용하세요.",
+                        "7. 맨 마지막은 반드시 </div> 로 닫아주세요.\n" +
+                        "8. 중요!! 답변에 ** (별표) 같은 마크다운 특수기호를 절대 사용하지 마세요.",
                 targetLevel, contextText, word, word
         );
 
