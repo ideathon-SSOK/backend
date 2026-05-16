@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins(
                         "http://localhost:3000",   // 프론트엔드 로컬 개발 환경 (React/Next.js 기본 포트)
                         "http://localhost:8080",   // (필요 시) Vue 등 기타 환경
-                        "https://your-frontend-domain.netlify.app" // 프론트엔드 배포 후의 실제 도메인 주소로 변경해야함!
+                        "https://ideathon-ssok.netlify.app" // 프론트엔드 배포 링크
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS") // 허용할 HTTP 메서드
                 .allowedHeaders("*") // 모든 헤더 허용
