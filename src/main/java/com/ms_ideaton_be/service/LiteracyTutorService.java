@@ -88,15 +88,15 @@ public class LiteracyTutorService {
 
         String result = callGeminiApi(prompt);
 
-        // 👈 [신규] 단어 분석 결과도 테이블에 똑같이 저장합니다.
+        // [신규] 단어 분석 결과도 테이블에 똑같이 저장합니다.
         LearningRecord record = LearningRecord.builder()
-                .type("WORD")          // 👈 단어 분석 기록임을 명시
+                .type("WORD")          // 단어 분석 기록임을 명시
                 .title(word)           // 물어본 단어 이름을 title에 저장
                 .originalText(contextText) // 단어가 포함되어 있던 문맥을 저장
                 .analysisResult(result)    // AI가 생성한 HTML 응답 전체를 저장
                 .targetLevel(targetLevel)
                 .build();
-        learningRecordRepository.save(record); // 👈 Repository를 통해 DB에 insert
+        learningRecordRepository.save(record); // Repository를 통해 DB에 insert
 
         // 마크다운 기호 강제 제거 (안전장치)
         return result.replace("**", "").replace("*", "").replace("#", "");
