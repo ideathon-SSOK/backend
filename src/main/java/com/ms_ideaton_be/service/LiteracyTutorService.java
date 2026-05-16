@@ -52,8 +52,9 @@ public class LiteracyTutorService {
         // 마크다운 잔여 기호 지우기 (HTML 태그는 그대로 살아남음)
         result = result.replace("**", "").replace("*", "").replace("#", "");
 
-        // DB에 기록 저장
+        // DB 저장 (type 추가)
         LearningRecord record = LearningRecord.builder()
+                .type("TEXT") // 전체 글 분석 기록임을 명시
                 .title(title)
                 .originalText(text)
                 .analysisResult(result)
@@ -65,6 +66,7 @@ public class LiteracyTutorService {
     }
 
     // 2. 특정 단어 문맥 맞춤 설명
+    @Transactional
     public String explainWord(String word, String contextText, String targetLevel) {
         String prompt = String.format(
                 "당신은 사용자의 문해력을 길러주는 친절한 전문 튜터입니다.\n" +
@@ -86,8 +88,19 @@ public class LiteracyTutorService {
 
         String result = callGeminiApi(prompt);
 
+        // 👈 [신규] 단어 분석 결과도 테이블에 똑같이 저장합니다.
+        LearningRecord record = LearningRecord.builder()
+                .type("WORD")          // 👈 단어 분석 기록임을 명시
+                .title(word)           // 물어본 단어 이름을 title에 저장
+                .originalText(contextText) // 단어가 포함되어 있던 문맥을 저장
+                .analysisResult(result)    // AI가 생성한 HTML 응답 전체를 저장
+                .targetLevel(targetLevel)
+                .build();
+        learningRecordRepository.save(record); // 👈 Repository를 통해 DB에 insert
+
         // 마크다운 기호 강제 제거 (안전장치)
         return result.replace("**", "").replace("*", "").replace("#", "");
+
     }
 
     // 공통 Gemini API 호출 로직
