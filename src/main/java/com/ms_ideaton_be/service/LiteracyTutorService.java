@@ -44,8 +44,8 @@ public class LiteracyTutorService {
                         "3. 스스로 이해를 유도하는 질문을 던지세요.\n" +
                         "4. 친절하게 응원하세요.\n" +
                         "5. 중요!! 답변에 ** (별표) 같은 마크다운 특수기호를 절대 사용하지 마세요.\n" +
-                        "6. 가독성 최적화!! 답변 전체를 반드시 다음 태그로 감싸주세요: <div style=\"white-space: pre-wrap; line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
-                        // 지시사항 7번 수정: 상단 [제목]의 실제 내용을 넣도록 명확하게 명시
+                        // white-space: pre-wrap; 제거됨
+                        "6. 가독성 최적화!! 답변 전체를 반드시 다음 태그로 감싸주세요: <div style=\"line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
                         "7. 글의 전체 제목은 상단 [제목] 영역에 제공된 실제 제목 텍스트를 그대로 가져와서 <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 24px; line-height: 1.3;\">진짜 제목 내용</h3> 형태로 가장 먼저 작성하세요.\n" +
                         "8. 각 문단의 핵심 소제목은 <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 32px; margin-bottom: 0px;\">소제목</h4> 형태로 작성하세요.\n" +
                         "9. 매우 중요: 소제목의 </h4> 태그가 끝난 직후에는 절대 엔터(줄바꿈)를 치지 말고, 곧바로 같은 줄에 이어서 본문 설명을 시작하세요.\n" +
@@ -78,7 +78,8 @@ public class LiteracyTutorService {
                         "[선택한 단어]: %s\n\n" +
                         "[지시사항]\n" +
                         "1. 반드시 아래의 HTML 구조와 순서대로만 대답해 주세요. 서론이나 결론 등 불필요한 말은 절대 하지 마세요.\n" +
-                        "2. 전체 내용을 감싸는 부모 태그: <div style=\"white-space: pre-wrap; line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
+                        // white-space: pre-wrap; 제거됨
+                        "2. 전체 내용을 감싸는 부모 태그: <div style=\"line-height: 1.65; letter-spacing: -0.02em; word-break: keep-all; color: #444;\">\n" +
                         "3. 맨 위 제목: <h3 style=\"color: #111827; font-weight: bold; font-size: 24px; margin-bottom: 24px; line-height: 1.3;\">%s</h3>\n" +
                         "4. 첫 번째 섹션: <h4 style=\"color: #6A82FB; font-weight: bold; font-size: 20px; margin-top: 0px; margin-bottom: 0px;\">이 단어, 여기선 이런 뜻이에요</h4>\n" +
                         "   - 중요 </h4> 태그 바로 뒤에 절대 엔터(줄바꿈)를 치지 말고 곧바로 이어서, 사전적 정의를 피하고 아주 쉬운 비유와 함께 단어의 본래 뜻을 풀이해주세요.\n" +
